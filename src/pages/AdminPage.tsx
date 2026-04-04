@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
-import { Download, BarChart3, QrCode } from "lucide-react";
+import { Download, BarChart3, QrCode, ExternalLink } from "lucide-react";
 import ParkHeader from "@/components/ParkHeader";
 import ParkFooter from "@/components/ParkFooter";
 import { zones } from "@/lib/zones";
@@ -88,6 +88,14 @@ const AdminPage = () => {
                     </CardHeader>
                     <CardContent className="flex flex-col items-center gap-3" data-qr={zone.id}>
                       <QRCodeSVG value={url} size={180} bgColor="transparent" fgColor="hsl(152, 45%, 28%)" />
+                      <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 rounded bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90 transition"
+                      >
+                        <ExternalLink className="h-3 w-3" /> Open Direct Link
+                      </a>
                       <code className="rounded bg-muted px-2 py-1 text-xs text-muted-foreground break-all">
                         {url}
                       </code>
