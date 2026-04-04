@@ -75,6 +75,9 @@ const ZonePage = () => {
               </li>
             ))}
           </ul>
+
+          {/* Share link for users without QR scanner */}
+          <ShareLink />
         </div>
       </section>
 
