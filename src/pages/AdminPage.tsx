@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
-import { Download, BarChart3, QrCode } from "lucide-react";
+import { Download, BarChart3, QrCode, ExternalLink } from "lucide-react";
 import ParkHeader from "@/components/ParkHeader";
 import ParkFooter from "@/components/ParkFooter";
 import { zones } from "@/lib/zones";
