@@ -7,6 +7,40 @@ import { getZoneById, zones } from "@/lib/zones";
 import { recordVisit } from "@/lib/analytics";
 import ZoneCard from "@/components/ZoneCard";
 
+const ShareLink = () => {
+  const [copied, setCopied] = useState(false);
+  const url = window.location.href;
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
+  return (
+    <div className="mt-10 rounded-lg border bg-card p-5">
+      <div className="mb-2 flex items-center gap-2 font-display text-lg font-semibold text-foreground">
+        <Share2 className="h-5 w-5 text-primary" /> Share This Page
+      </div>
+      <p className="mb-3 text-sm text-muted-foreground">
+        No QR scanner? Share this direct link with friends and family:
+      </p>
+      <div className="flex items-center gap-2">
+        <code className="flex-1 overflow-x-auto rounded bg-muted px-3 py-2 text-sm text-muted-foreground">
+          {url}
+        </code>
+        <button
+          onClick={handleCopy}
+          className="inline-flex items-center gap-1 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90"
+        >
+          {copied ? <><Check className="h-4 w-4" /> Copied!</> : <><Copy className="h-4 w-4" /> Copy</>}
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const ZonePage = () => {
   const { zoneId } = useParams<{ zoneId: string }>();
   const zone = getZoneById(zoneId ?? "");
