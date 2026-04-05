@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { ArrowLeft, CheckCircle, Share2, Copy, Check } from "lucide-react";
+import { ArrowLeft, CheckCircle, Share2, Copy, Check, QrCode } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 import ParkHeader from "@/components/ParkHeader";
 import ParkFooter from "@/components/ParkFooter";
 import { getZoneById, zones } from "@/lib/zones";
@@ -21,21 +22,26 @@ const ShareLink = () => {
   return (
     <div className="mt-10 rounded-lg border bg-card p-5">
       <div className="mb-2 flex items-center gap-2 font-display text-lg font-semibold text-foreground">
-        <Share2 className="h-5 w-5 text-primary" /> Share This Page
+        <QrCode className="h-5 w-5 text-primary" /> QR Code & Share Link
       </div>
       <p className="mb-3 text-sm text-muted-foreground">
-        No QR scanner? Share this direct link with friends and family:
+        Scan the QR code or share this direct link with friends and family:
       </p>
-      <div className="flex items-center gap-2">
-        <code className="flex-1 overflow-x-auto rounded bg-muted px-3 py-2 text-sm text-muted-foreground">
-          {url}
-        </code>
-        <button
-          onClick={handleCopy}
-          className="inline-flex items-center gap-1 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90"
-        >
-          {copied ? <><Check className="h-4 w-4" /> Copied!</> : <><Copy className="h-4 w-4" /> Copy</>}
-        </button>
+      <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
+        <div className="rounded-lg border bg-white p-3">
+          <QRCodeSVG value={url} size={140} bgColor="#ffffff" fgColor="hsl(152, 45%, 28%)" />
+        </div>
+        <div className="flex flex-1 flex-col gap-2">
+          <code className="overflow-x-auto rounded bg-muted px-3 py-2 text-sm text-muted-foreground break-all">
+            {url}
+          </code>
+          <button
+            onClick={handleCopy}
+            className="inline-flex w-fit items-center gap-1 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90"
+          >
+            {copied ? <><Check className="h-4 w-4" /> Copied!</> : <><Copy className="h-4 w-4" /> Copy Link</>}
+          </button>
+        </div>
       </div>
     </div>
   );

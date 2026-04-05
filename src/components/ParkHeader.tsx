@@ -29,9 +29,6 @@ const ParkHeader = () => {
               {z.name}
             </Link>
           ))}
-          <Link to="/admin" className={`transition hover:opacity-80 ${location.pathname === "/admin" ? "underline underline-offset-4" : ""}`}>
-            Admin
-          </Link>
         </nav>
 
         {/* Mobile toggle */}
@@ -49,7 +46,7 @@ const ParkHeader = () => {
               {z.icon} {z.name}
             </Link>
           ))}
-          <Link to="/admin" onClick={() => setMenuOpen(false)} className="py-1">Admin</Link>
+          
         </nav>
       )}
     </header>
