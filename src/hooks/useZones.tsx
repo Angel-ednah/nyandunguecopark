@@ -25,7 +25,7 @@ export function useZones() {
       if (error) throw error;
       return (data ?? []).map((z: any) => ({
         ...z,
-        facts: Array.isArray(z.facts) ? z.facts : JSON.parse(z.facts ?? "[]"),
+        facts: Array.isArray(z.facts) ? z.facts : JSON.parse(String(z.facts ?? "[]")),
       }));
     },
   });
@@ -44,7 +44,7 @@ export function useZoneBySlug(slug: string) {
       if (!data) return null;
       return {
         ...data,
-        facts: Array.isArray(data.facts) ? data.facts : JSON.parse(data.facts ?? "[]"),
+        facts: Array.isArray(data.facts) ? data.facts : JSON.parse(String(data.facts ?? "[]")),
       } as ZoneRow;
     },
     enabled: !!slug,
