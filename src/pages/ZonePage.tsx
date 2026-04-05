@@ -4,7 +4,7 @@ import { ArrowLeft, CheckCircle, Share2, Copy, Check, QrCode } from "lucide-reac
 import { QRCodeSVG } from "qrcode.react";
 import ParkHeader from "@/components/ParkHeader";
 import ParkFooter from "@/components/ParkFooter";
-import { getZoneById, zones } from "@/lib/zones";
+import { useZones, useZoneBySlug } from "@/hooks/useZones";
 import { recordVisit } from "@/lib/analytics";
 import ZoneCard from "@/components/ZoneCard";
 
@@ -49,11 +49,24 @@ const ShareLink = () => {
 
 const ZonePage = () => {
   const { zoneId } = useParams<{ zoneId: string }>();
-  const zone = getZoneById(zoneId ?? "");
+  const { data: zone, isLoading } = useZoneBySlug(zoneId ?? "");
+  const { data: allZones = [] } = useZones();
 
   useEffect(() => {
     if (zoneId) recordVisit(zoneId);
   }, [zoneId]);
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen flex-col">
+        <ParkHeader />
+        <div className="flex flex-1 items-center justify-center">
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+        <ParkFooter />
+      </div>
+    );
+  }
 
   if (!zone) {
     return (
@@ -70,7 +83,7 @@ const ZonePage = () => {
     );
   }
 
-  const otherZones = zones.filter((z) => z.id !== zone.id);
+  const otherZones = allZones.filter((z) => z.slug !== zone.slug);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -82,7 +95,11 @@ const ZonePage = () => {
           <Link to="/" className="mb-4 inline-flex items-center gap-1 text-sm opacity-80 hover:opacity-100">
             <ArrowLeft className="h-4 w-4" /> Back to Home
           </Link>
-          <div className="text-6xl">{zone.icon}</div>
+          {zone.image_url ? (
+            <img src={zone.image_url} alt={zone.name} className="mb-4 h-48 w-full rounded-lg object-cover" />
+          ) : (
+            <div className="text-6xl">{zone.icon}</div>
+          )}
           <h1 className="mt-4 font-display text-4xl font-bold sm:text-5xl">{zone.name}</h1>
           <p className="mt-2 text-lg opacity-90">{zone.tagline}</p>
         </div>
@@ -116,25 +133,19 @@ const ZonePage = () => {
             ))}
           </ul>
 
-          {/* Share link for users without QR scanner */}
           <ShareLink />
         </div>
       </section>
 
-      {/* Placeholder for photos/videos */}
-      <section className="bg-card py-14">
-        <div className="container mx-auto max-w-3xl px-4 text-center">
-          <h2 className="mb-4 font-display text-2xl font-bold text-foreground">Gallery</h2>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="flex aspect-video items-center justify-center rounded-lg bg-muted text-muted-foreground">
-                Photo {i}
-              </div>
-            ))}
+      {/* Gallery */}
+      {zone.image_url && (
+        <section className="bg-card py-14">
+          <div className="container mx-auto max-w-3xl px-4 text-center">
+            <h2 className="mb-4 font-display text-2xl font-bold text-foreground">Gallery</h2>
+            <img src={zone.image_url} alt={zone.name} className="mx-auto rounded-lg" />
           </div>
-          <p className="mt-4 text-sm text-muted-foreground">Photos and videos coming soon</p>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Other zones */}
       <section className="py-14">
@@ -142,7 +153,7 @@ const ZonePage = () => {
           <h2 className="mb-6 text-center font-display text-2xl font-bold text-foreground">Explore Other Zones</h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {otherZones.map((z) => (
-              <ZoneCard key={z.id} zone={z} />
+              <ZoneCard key={z.id} zone={{ id: z.slug, name: z.name, tagline: z.tagline, icon: z.icon, description: z.description, highlights: z.highlights, facts: z.facts }} />
             ))}
           </div>
         </div>
