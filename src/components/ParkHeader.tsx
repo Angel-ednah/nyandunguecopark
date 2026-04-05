@@ -1,11 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import { TreePine, Menu, X } from "lucide-react";
 import { useState } from "react";
-import { zones } from "@/lib/zones";
+import { useZones } from "@/hooks/useZones";
 
 const ParkHeader = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const { data: zones = [] } = useZones();
 
   return (
     <header className="sticky top-0 z-50 bg-primary text-primary-foreground shadow-lg">
@@ -15,7 +16,6 @@ const ParkHeader = () => {
           <span>Nyandungu Eco-Park</span>
         </Link>
 
-        {/* Desktop nav */}
         <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
           <Link to="/" className={`transition hover:opacity-80 ${location.pathname === "/" ? "underline underline-offset-4" : ""}`}>
             Home
@@ -23,30 +23,27 @@ const ParkHeader = () => {
           {zones.map((z) => (
             <Link
               key={z.id}
-              to={`/zone/${z.id}`}
-              className={`transition hover:opacity-80 ${location.pathname === `/zone/${z.id}` ? "underline underline-offset-4" : ""}`}
+              to={`/zone/${z.slug}`}
+              className={`transition hover:opacity-80 ${location.pathname === `/zone/${z.slug}` ? "underline underline-offset-4" : ""}`}
             >
               {z.name}
             </Link>
           ))}
         </nav>
 
-        {/* Mobile toggle */}
         <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
           {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
-      {/* Mobile nav */}
       {menuOpen && (
         <nav className="flex flex-col gap-2 border-t border-primary-foreground/20 px-4 pb-4 pt-2 md:hidden">
           <Link to="/" onClick={() => setMenuOpen(false)} className="py-1">Home</Link>
           {zones.map((z) => (
-            <Link key={z.id} to={`/zone/${z.id}`} onClick={() => setMenuOpen(false)} className="py-1">
+            <Link key={z.id} to={`/zone/${z.slug}`} onClick={() => setMenuOpen(false)} className="py-1">
               {z.icon} {z.name}
             </Link>
           ))}
-          
         </nav>
       )}
     </header>
