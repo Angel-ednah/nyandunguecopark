@@ -4,6 +4,7 @@ import { ArrowLeft, CheckCircle, Share2, Copy, Check, QrCode } from "lucide-reac
 import { QRCodeSVG } from "qrcode.react";
 import ParkHeader from "@/components/ParkHeader";
 import ParkFooter from "@/components/ParkFooter";
+import ZoneSectionBlock from "@/components/ZoneSection";
 import { useZones, useZoneBySlug } from "@/hooks/useZones";
 import { recordVisit } from "@/lib/analytics";
 import ZoneCard from "@/components/ZoneCard";
