@@ -134,6 +134,15 @@ const ZonePage = () => {
             ))}
           </ul>
 
+          {/* Rich sections from document content */}
+          {zone.sections && zone.sections.length > 0 && (
+            <div className="mt-10 space-y-8">
+              {zone.sections.map((section, idx) => (
+                <ZoneSectionBlock key={idx} section={section} />
+              ))}
+            </div>
+          )}
+
           <ShareLink />
         </div>
       </section>
