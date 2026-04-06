@@ -40,6 +40,7 @@ export function useZones() {
         sections: Array.isArray(z.sections) ? z.sections : [],
       })) as ZoneRow[];
     },
+  });
 }
 
 export function useZoneBySlug(slug: string) {
@@ -56,6 +57,7 @@ export function useZoneBySlug(slug: string) {
       return {
         ...data,
         facts: Array.isArray(data.facts) ? data.facts : JSON.parse(String(data.facts ?? "[]")),
+        sections: Array.isArray((data as any).sections) ? (data as any).sections : [],
       } as ZoneRow;
     },
     enabled: !!slug,
