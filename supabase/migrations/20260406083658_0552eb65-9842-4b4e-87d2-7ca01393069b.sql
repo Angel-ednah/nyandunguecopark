@@ -1,0 +1,1 @@
+ALTER TABLE public.zones ADD COLUMN sections jsonb NOT NULL DEFAULT '[]'::jsonb;

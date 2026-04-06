@@ -4,6 +4,7 @@ import { ArrowLeft, CheckCircle, Share2, Copy, Check, QrCode } from "lucide-reac
 import { QRCodeSVG } from "qrcode.react";
 import ParkHeader from "@/components/ParkHeader";
 import ParkFooter from "@/components/ParkFooter";
+import ZoneSectionBlock from "@/components/ZoneSection";
 import { useZones, useZoneBySlug } from "@/hooks/useZones";
 import { recordVisit } from "@/lib/analytics";
 import ZoneCard from "@/components/ZoneCard";
@@ -132,6 +133,15 @@ const ZonePage = () => {
               </li>
             ))}
           </ul>
+
+          {/* Rich sections from document content */}
+          {zone.sections && zone.sections.length > 0 && (
+            <div className="mt-10 space-y-8">
+              {zone.sections.map((section, idx) => (
+                <ZoneSectionBlock key={idx} section={section} />
+              ))}
+            </div>
+          )}
 
           <ShareLink />
         </div>

@@ -1,6 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
+export interface ZoneSection {
+  title: string;
+  type: "text" | "list" | "guidelines" | "bilingual";
+  content?: string;
+  content_kn?: string;
+  items?: string[];
+  items_kn?: string[];
+  icon?: string;
+}
+
 export interface ZoneRow {
   id: string;
   slug: string;
@@ -12,6 +22,7 @@ export interface ZoneRow {
   facts: { label: string; value: string }[];
   image_url: string | null;
   display_order: number;
+  sections: ZoneSection[];
 }
 
 export function useZones() {
@@ -26,7 +37,8 @@ export function useZones() {
       return (data ?? []).map((z: any) => ({
         ...z,
         facts: Array.isArray(z.facts) ? z.facts : JSON.parse(String(z.facts ?? "[]")),
-      }));
+        sections: Array.isArray(z.sections) ? z.sections : [],
+      })) as ZoneRow[];
     },
   });
 }
@@ -45,6 +57,7 @@ export function useZoneBySlug(slug: string) {
       return {
         ...data,
         facts: Array.isArray(data.facts) ? data.facts : JSON.parse(String(data.facts ?? "[]")),
+        sections: Array.isArray((data as any).sections) ? (data as any).sections : [],
       } as ZoneRow;
     },
     enabled: !!slug,
