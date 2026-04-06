@@ -39,7 +39,7 @@ export function useZones() {
         facts: Array.isArray(z.facts) ? z.facts : JSON.parse(String(z.facts ?? "[]")),
         sections: Array.isArray(z.sections) ? z.sections : [],
       })) as ZoneRow[];
-  });
+    },
 }
 
 export function useZoneBySlug(slug: string) {
