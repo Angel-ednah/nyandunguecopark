@@ -16,12 +16,13 @@ const Index = () => {
       <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-gradient-to-b from-primary via-nature-canopy to-nature-deep px-4 text-center text-primary-foreground">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvc3ZnPg==')] opacity-60" />
         <div className="relative z-10 max-w-3xl animate-fade-in-up">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-widest opacity-80">Kigali, Rwanda</p>
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] opacity-80">Kigali, Rwanda</p>
           <h1 className="font-display text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
-            Dive Into the Heart of Nature
+            Discover Nyandungu Eco-Park
           </h1>
-          <p className="mx-auto mt-5 max-w-xl text-lg opacity-90">
-            Experience the serene beauty of Kigali's first restored urban wetland — 121 hectares of lush flora, vibrant birdlife, and scenic trails.
+          <p className="mt-3 text-lg font-semibold uppercase tracking-[0.2em] opacity-90">Scan • Learn • Protect</p>
+          <p className="mx-auto mt-4 max-w-xl text-lg opacity-80">
+            Explore Kigali's first restored urban wetland — 121 hectares of lush flora, vibrant birdlife, and scenic trails.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             {zones.length > 0 && (

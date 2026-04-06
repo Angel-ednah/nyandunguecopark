@@ -13,7 +13,10 @@ const ParkHeader = () => {
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
         <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold tracking-wide">
           <TreePine className="h-7 w-7" />
-          <span>Nyandungu Eco-Park</span>
+          <div className="flex flex-col leading-tight">
+            <span>Discover Nyandungu</span>
+            <span className="text-[10px] font-medium uppercase tracking-[0.2em] opacity-70">Scan • Learn • Protect</span>
+          </div>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
