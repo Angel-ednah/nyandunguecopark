@@ -37,8 +37,8 @@ export function useZones() {
       return (data ?? []).map((z: any) => ({
         ...z,
         facts: Array.isArray(z.facts) ? z.facts : JSON.parse(String(z.facts ?? "[]")),
-      }));
-    },
+        sections: Array.isArray(z.sections) ? z.sections : [],
+      })) as ZoneRow[];
   });
 }
 
