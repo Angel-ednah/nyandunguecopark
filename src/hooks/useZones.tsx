@@ -1,6 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
+export interface ZoneSection {
+  title: string;
+  type: "text" | "list" | "guidelines" | "bilingual";
+  content?: string;
+  content_kn?: string;
+  items?: string[];
+  items_kn?: string[];
+  icon?: string;
+}
+
 export interface ZoneRow {
   id: string;
   slug: string;
@@ -12,6 +22,7 @@ export interface ZoneRow {
   facts: { label: string; value: string }[];
   image_url: string | null;
   display_order: number;
+  sections: ZoneSection[];
 }
 
 export function useZones() {
