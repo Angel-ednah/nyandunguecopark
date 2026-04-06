@@ -43,6 +43,7 @@ export type Database = {
           id: string
           image_url: string | null
           name: string
+          sections: Json
           slug: string
           tagline: string
           updated_at: string
@@ -57,6 +58,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           name: string
+          sections?: Json
           slug: string
           tagline?: string
           updated_at?: string
@@ -71,6 +73,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           name?: string
+          sections?: Json
           slug?: string
           tagline?: string
           updated_at?: string
